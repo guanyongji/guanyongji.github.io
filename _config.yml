@@ -5,151 +5,165 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # `jekyll serve`. If you change this file, please restart the server process.
 
+# Theme Settings
+#
+# Review documentation to determine if you should use `theme` or `remote_theme`
+# https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
+
+# theme                  : "minimal-mistakes-jekyll"
+# remote_theme           : "mmistakes/minimal-mistakes"
+remote_theme: "mmistakes/minimal-mistakes@4.21.0"
+minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
 # Site Settings
-locale                   : "en-US"
-title                    : "Yongji Guan's Website"
+locale                   : "fr-FR"
+title                    : "Quentin Fortier"
 title_separator          : "-"
-name                     : &name "Yongji Guan"
-description              : &description "Where there is a will, there is a way!"
-url                      : https://yongjiguan.github.io/ # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "yongjiguan/yongjiguan.github.io"
-teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
-breadcrumbs              : false # true, false (default)
-words_per_minute         : 160
-future                   : true
-read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
-talkmap_link             : true #change to true to add link to talkmap on talks page
+subtitle                 : "Algorithmes, machine learning, optimisation"
+name                     : "Quentin Fortier"
+description              : "Site personnel"
+url                      : "https://fortierq.github.io"
+baseurl                  : ""
+repository               : fortierq/fortierq.github.io
+teaser                   : 
+logo                     : "/assets/images/petersen.png"
+masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
+# breadcrumbs            : false # true, false (default)
+words_per_minute         : 200
 comments:
-  provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  provider               : "utterances" # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
-    shortname            :
+    shortname            : http-fortierq-github-io # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
+    # https://developers.facebook.com/docs/plugins/comments
     appid                :
     num_posts            : # 5 (default)
     colorscheme          : # "light" (default), "dark"
-staticman:
-  allowedFields          : ['name', 'email', 'url', 'message']
-  branch                 : "gh-pages" # "master", "gh-pages"
-  commitMessage          : "New comment."
-  filename               : comment-{@timestamp}
-  format                 : "yml"
-  moderation             : true
-  path                   : "_data/comments/{options.slug}"
-  requiredFields         : ['name', 'email', 'message']
-  transforms:
-    email                : "md5"
-  generatedFields:
-    date:
-      type               : "date"
-      options:
-        format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
-atom_feed:
-  path                   : # blank (default) uses feed.xml
-
+  utterances:
+    theme                : # "github-light" (default), "github-dark"
+    issue_term           : # "pathname" (default)
+  staticman:
+    branch               : # "master"
+    endpoint             : # "https://{your Staticman v3 API}/v3/entry/github/"
+reCaptcha:
+  siteKey                :
+  secret                 :
+search                   : # true, false (default)
+search_full_content      : # true, false (default)
+search_provider          : # lunr (default), algolia, google
+algolia:
+  application_id         : # YOUR_APPLICATION_ID
+  index_name             : # YOUR_INDEX_NAME
+  search_only_api_key    : # YOUR_SEARCH_ONLY_API_KEY
+  powered_by             : # true (default), false
+google:
+  search_engine_id       : # YOUR_SEARCH_ENGINE_ID
+  instant_search         : # false (default), true
 # SEO Related
 google_site_verification :
 bing_site_verification   :
-alexa_site_verification  :
 yandex_site_verification :
+naver_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : &twitter
+  username               : "FortierQuentin"
 facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  # Open Graph/Twitter default site image
+linkedin                 : "fortierq"
+og_image                 : /assets/images/petersen.png
+# Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
   type                   : # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
-  links                  : # An array of links to social media profiles
-
+  links: # An array of links to social media profiles
+    - https://twitter.com/FortierQuentin
 
 # Analytics
 analytics:
-  provider               :  "google-universal" # false (default), "google", "google-universal", "custom"
+  provider               : false # false (default), "google", "google-universal", "google-gtag", "custom"
   google:
     tracking_id          :
+    anonymize_ip         : # true, false (default)
 
 
 # Site Author
 author:
-  name             : "Yongji Guan (关永吉)"
-  avatar           : "gyj.png"
-  bio              : "Postdoc, Physical Chemistry, Department of Chemistry, Imperial College London"
-  location         : "London, United Kingdom"
-  employer         : # "Imperial College London"
-  email            : "yongji.guan@imperial.ac.uk"
-  
-  researchgate     : "https://www.researchgate.net/profile/Yongji_Guan"
-  googlescholar    : "https://scholar.google.com/citations?hl=en&user=0rV6OnYAAAAJ"
-  orcid            : "https://orcid.org/0000-0001-9210-3530"
-  github           : "yongjiguan"
-  publons          : "https://publons.com/researcher/1467632/yongji-guan/"
-  pubmed           : # "https://www.ncbi.nlm.nih.gov/"
-  
-  facebook         :
-  linkedin         : "yongji-guan-09434b195"
-  twitter          : "GuanYongji"  
-  youtube          : #"https://www.youtube.com/?reload=9"
-  weibo            : #"https://www.weibo.com/2075115211/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1"
-  
-  uri              :
-  bitbucket        :
-  codepen          :
-  dribbble         :
-  flickr           :
-  foursquare       :
-  google_plus      :
-  keybase          :
-  instagram        :
-  impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
-  lastfm           :
-  pinterest        :
-  soundcloud       :
-  stackoverflow    : # http://stackoverflow.com/users/123456/username
-  steam            :
-  tumblr           :
-  vine             :
-  xing             :
-  wikipedia        :
+  name             : "Quentin Fortier"
+  avatar           : "/assets/images/qf.png"
+  bio              : "Docteur en informatique. Agrégé de mathématiques option informatique."
+  # location         : "Lyon"
+  email            : "quentin.fortier@ens-lyon.org"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/fortierq"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter"
+      url: "https://twitter.com/FortierQuentin"
+    - label: "DockerHub"
+      icon: "fab fa-fw fa-docker"
+      url: "https://hub.docker.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/fortierq"
+    - label: "LeetCode"
+      url: "https://leetcode.com/qpfortier"
+    - label: "Kaggle"
+      icon: "fab fa-fw fa-kaggle"
+      url: "https://www.kaggle.com/quentinfortier"
 
+# Site Footer
+footer:
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter fa-3x"
+      url: "https://twitter.com/FortierQuentin"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github fa-3x"
+      url: "https://github.com/fortierq"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin fa-3x"
+      url: "https://linkedin.com/in/fortierq/"
+    
 
 # Reading Files
 include:
   - .htaccess
   - _pages
-  - files
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
+  - vendor
   - .asset-cache
   - .bundle
   - .jekyll-assets-cache
   - .sass-cache
-  - CHANGELOG
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
   - Capfile
+  - CHANGELOG
+  - config
   - Gemfile
   - Gruntfile.js
-  - LICENSE
-  - README
-  - Rakefile
-  - assets/js/_main.js
-  - assets/js/plugins
-  - assets/js/vendor
-  - config
   - gulpfile.js
+  - LICENSE
   - log
   - node_modules
   - package.json
+  - package-lock.json
+  - Rakefile
+  - README
   - tmp
-  - vendor
+  - /docs # ignore Minimal Mistakes /docs
+  - /test # ignore Minimal Mistakes /test
 keep_files:
   - .git
   - .svn
@@ -177,142 +191,34 @@ kramdown:
   enable_coderay: false
 
 
-# Collections
-collections:
-  teaching:
-    output: true
-    permalink: /:collection/:path/
-  publications:
-    output: true
-    permalink: /:collection/:path/
-  research:
-    output: true
-    permalink: /:collection/:path/
-  talks:
-    output: true
-    permalink: /:collection/:path/
-  portfolio:
-    output: true
-    permalink: /:collection/:path/
-
-
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
-  # _pages
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: single
-      author_profile: true
-  # _teaching
-  - scope:
-      path: ""
-      type: teaching
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
-  # _publications
-  - scope:
-      path: ""
-      type: publications
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
-  # _research
-  - scope:
-      path: ""
-      type: research
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
-  # _portfolios
-  - scope:
-      path: ""
-      type: portfolios
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
-  # _talks
-  - scope:
-      path: ""
-      type: talks
-    values:
-      layout: talk
-      author_profile: true
-      share: true
-  # _cv/bio
-  - scope:
-      path: ""
-      type: cv/bio
-    values:
-      layout: single
-      author_profile: true
-      share: true
-  # _contacts
-  - scope:
-      path: ""
-      type: contacts
-    values:
-      layout: single
-      author_profile: true
-      share: true
-  # _links
-  - scope:
-      path: ""
-      type: links
-    values:
-      layout: single
-      author_profile: true
-      share: true
-
-
 # Sass/SCSS
 sass:
   sass_dir: _sass
-  style: compressed # http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
+  style: compressed # https://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
 
 
 # Outputting
 permalink: /:categories/:title/
-# paginate: 5 # amount of posts to show
-# paginate_path: /page:num/
-timezone: Asia/Chongqing # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
-# Plugins
+# Plugins (previously gems:)
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  - jekyll-redirect-from
+  - jekyll-include-cache
+
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  - jemoji
+  - jekyll-include-cache
 
 
 # Archives
@@ -323,8 +229,8 @@ whitelist:
 #  - Archive page should exist at path when using Liquid method or you can
 #    expect broken links (especially with breadcrumbs enabled)
 #  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
-#  - <base_path/categories/my-awesome-category/index.html ~> path: /categories/
-#  - <base_path/my-awesome-category/index.html ~> path: /
+#  - <base_path>/categories/my-awesome-category/index.html ~> path: /categories/
+#  - <base_path>/my-awesome-category/index.html ~> path: /
 category_archive:
   type: liquid
   path: /categories/
@@ -345,8 +251,34 @@ tag_archive:
 
 
 # HTML Compression
-# - http://jch.penibelst.de/
+# - https://jch.penibelst.de/
 compress_html:
   clippings: all
   ignore:
     envs: development
+
+
+# Defaults
+defaults:
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+      sticky: true
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      sticky: true
+      show_date: true
+

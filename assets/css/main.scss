@@ -1,41 +1,73 @@
 ---
+# Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-/*
- *    Minimal Mistakes Jekyll Theme
- *
- *  - Michael Rose
- *  - mademistakes.com
- *  - https://twitter.com/mmistakes
- *
-*/
+@charset "utf-8";
 
-@import "vendor/breakpoint/breakpoint"; // media query mixins
-@import "variables";
-@import "mixins";
-@import "vendor/susy/susy";
+$max-width: 90%;
+$back: rgb(250, 250, 250);
 
-@import "reset";
-@import "base";
+.half-line {
+  line-height: 40%;
+}
 
-@import "utilities";
-@import "animations";
-@import "tables";
-@import "buttons";
-@import "notices";
-@import "masthead";
-@import "navigation";
-@import "footer";
-@import "syntax";
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }  
 
-@import "forms";
+.table {
+    border-collapse: collapse;
 
-@import "page";
-@import "archive";
-@import "sidebar";
+  > table, td, th {
+    border: 1px solid black;
+    }
+}
 
-@import "vendor/font-awesome/fontawesome";
-@import "vendor/font-awesome/solid";
-@import "vendor/font-awesome/brands";
-@import "vendor/magnific-popup/magnific-popup";
-@import "print";
+img {
+  box-shadow: 0 0 10px rgba(#000, 0.25);
+}
+
+.fab:hover {
+  opacity: 0.5;
+}
+
+// .feature_sz{
+//   height: 11.5cm;
+// }
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+.site-logo img {
+  box-shadow: 0 0 0px rgba(#000, 0.25);
+}
+
+.feature__item {
+  text-align: center;
+  border: 1px solid lightgray;
+  background-color: $back;
+  &:hover { 
+    box-shadow: 0 0 10px rgba(#000, 0.25);
+    opacity: 80%;
+  }
+}
+
+.archive__item-title, .archive__item-excerpt {
+  text-decoration: none; 
+  color: $text-color;
+}
+
+.archive__item-teaser {
+  img {
+    max-height: 5cm;
+    object-fit: contain;
+    box-shadow: 0 0 0px rgba(#000, 0.25);
+  }
+}
+
+.no-shadow {
+  img {
+    box-shadow: 0 0 0px rgba(#000, 0.25);
+  }
+}

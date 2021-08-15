@@ -1,0 +1,702 @@
+---
+permalink: /nb/pavage/
+layout: nb
+author_profile: false
+toc: true
+toc_label: Sommaire
+toc_sticky: true
+---
+
+{% raw %}
+<body>
+  <div class="nb">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Pavages">Pavages<a class="anchor-link" href="#Pavages"></a></h1><h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"></a></h2><p>On souhaite paver (sans chevauchement) une grille rectangulaire en la remplissant au maximum à l'aide de tuiles (chacune disponible en quantité infinie).</p>
+<p>Voici un exemple de pavage optimal (pourquoi est-il optimal?) d'un carré 5x5 à l'aide de tuiles en L (dans n'importe quel sens):
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnCAYAAADl9EEgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAADdUlEQVR4nO3YIW4WURiG0V5CME26hoqGBXQLEFgK1WyAsAmSmjo8JJjiK8FVVdTiMXUXgZ0h/KmYp5Nz5HzmNU9uMmPOeQT0PNt6ALBMnBAlTogSJ0SJE6Ke/+s4xsen8yv3zYetF+za/P526wn7Na/H0mcvJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlRY865ery4HevHmMv3T2bqX9++br1gt+aLT1tPOMy8HkufvZwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBpzztXjxe1YP/Ioly+/bD3hID/evd56wm6dXx2Ppe9eTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixpxz9Xh3dLp+jDl7uN96wq6Nm5OtJ/y3n59/bT3hIOdXx2Ppu5cTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVFjzrl6vDs6XT/yKGcP91tPOMi4Odl6wn69+j2WPns5IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogac86tNwALvJwQJU6IEidEiROixAlR4oSoP3g+NrkjAAElAAAAAElFTkSuQmCC" alt="Exemple">
+Dans cet exemple, seule la case en haut à gauche n'est pas couverte.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mod&#233;lisation-par-PLNE">Mod&#233;lisation par PLNE<a class="anchor-link" href="#Mod&#233;lisation-par-PLNE"></a></h2><p>Considérons l'ensemble $\mathcal{P}$ des positions possibles d'une tuile sur la grille (exercice: que vaut $\vert \mathcal{P} \vert$ sur l'exemple ci-dessus?). <br>
+Définissons une variable $x_k$ par élément $p_k$ de $\mathcal{P}$, valant 1 si la tuile correspondante est posée, 0 sinon. <br>
+Définissons $w_k$ comme le nombre de cases occupées par la tuile $p_k$. <br>
+On souhaite alors maximiser le nombre de cases couvertes, c'est-à-dire:
+$$\sum_k x_k \times w_k$$ 
+La contrainte de non-chevauchement s'exprime en disant que chaque case de coordonnée $(i, j)$ est recouverte par au plus une tuile, c'est-à-dire: 
+$$\displaystyle\sum_{p_k \in \mathcal{P},\\(i, j) \in p_k} x_k \leq 1$$</p>
+<p>Il s'agit d'un <strong>programme linéaire en nombres entiers</strong> (<strong>PLNE</strong>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="R&#233;solution-avec-MIP">R&#233;solution avec MIP<a class="anchor-link" href="#R&#233;solution-avec-MIP"></a></h2><p>Malheureusement, la résolution d'un PLNE est plus difficile que celle d'un programme linéaire où les variables sont réelles. <br>
+En effet, dans ce deuxième cas, la méthode de l'ellipsoïde/du simplexe donne un algorithme efficace en théorie/en pratique.</p>
+<p>Heureusement, il existe quand même des méthodes pour résoudre un PLNE comme celle de <strong>Branch &amp; Bound</strong> (et ses variations comme <strong>Branch &amp; Cut</strong>). Le package MIP en Python permet d'utiliser un solveur de PLNE s'appuyant sur ce genre de méthodes. <br>
+Par défaut, MIP utilise le solveur COIN-OR.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">mip</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Définissons un PLNE avec MIP. <br>
+Pour cela, on commence par définir un modèle <code>m</code>. <br>
+Les variables (binaires: 0 ou 1) sont ajoutées avec <code>m.add_var</code>. <br>
+On ajoute une contrainte en écrivant <code>m += ... &lt;= ...</code>. <br>
+<code>constraints[i][j]</code> contient la liste des variables (i.e tuiles) couvrant la case $(i, j)$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pl</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="c1"># renvoie un modèle de PL pour paver une grille nxp avec des tuiles de tiles</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(),</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[[[]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tiles</span><span class="p">)):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">add_var</span><span class="p">(</span><span class="n">var_type</span><span class="o">=</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)))</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tiles</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">tiles</span><span class="p">[</span><span class="n">t</span><span class="p">]):</span>
+                    <span class="n">constraints</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">][</span><span class="n">j</span> <span class="o">+</span> <span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">constraints</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+            <span class="n">m</span> <span class="o">+=</span> <span class="n">xsum</span><span class="p">(</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">maximize</span><span class="p">(</span><span class="n">xsum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">m</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Une fois ce modèle obtenu, on peut le résoudre:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="c1"># affiche un pavage optimal d&#39;une grille nxp avec des tuiles de tiles</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">pl</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">max_seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">OptimizationStatus</span><span class="o">.</span><span class="n">OPTIMAL</span><span class="p">:</span>
+        <span class="n">ntile</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+           <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span> 
+              <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span> <span class="c1"># tuile correspondante à la variable v</span>
+              <span class="n">ntile</span> <span class="o">+=</span> <span class="mi">1</span>
+              <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">tiles</span><span class="p">[</span><span class="n">t</span><span class="p">]):</span>
+                  <span class="n">sol</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntile</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution optimale avec&quot;</span><span class="p">,</span> <span class="n">ntile</span><span class="p">,</span> <span class="s2">&quot;tuiles&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">((</span><span class="n">sol</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">&quot;cases ne sont pas couvertes&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;gist_ncar&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Essayons:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># L[i, j] vaut True si (i, j) est occupé par la tuile, False sinon</span>
+<span class="n">Ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">L</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">L</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="c1"># les 4 rotations possibles de L</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 8 tuiles
+1 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnCAYAAADl9EEgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAADdUlEQVR4nO3YIW4WURiG0V5CME26hoqGBXQLEFgK1WyAsAmSmjo8JJjiK8FVVdTiMXUXgZ0h/KmYp5Nz5HzmNU9uMmPOeQT0PNt6ALBMnBAlTogSJ0SJE6Ke/+s4xsen8yv3zYetF+za/P526wn7Na/H0mcvJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlRY865ery4HevHmMv3T2bqX9++br1gt+aLT1tPOMy8HkufvZwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBpzztXjxe1YP/Ioly+/bD3hID/evd56wm6dXx2Ppe9eTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixpxz9Xh3dLp+jDl7uN96wq6Nm5OtJ/y3n59/bT3hIOdXx2Ppu5cTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVFjzrl6vDs6XT/yKGcP91tPOMi4Odl6wn69+j2WPns5IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogac86tNwALvJwQJU6IEidEiROixAlR4oSoP3g+NrkjAAElAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>On retrouve bien l'exemple initial!</p>
+<p>Essayons avec d'autres tuiles, par exemple avec des carrés 2x2:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">solve</span><span class="p">([</span><span class="n">C</span><span class="p">],</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 4 tuiles
+9 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnCAYAAADl9EEgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAADDklEQVR4nO3YsUkFQRhG0R152IlNvAbsSkuxBjsxNrKLFwiOuSwLIjpXPSfcSb7k8sOOOecG9FytHgDsEydEiROixAlR4oSo09HjeH30K/e7XD+tXvApz/Nh9YQ/62Z7GXvfXU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQtSYcx683h488hVjO6+eQMSc92Pvu8sJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQtRp9QB+h7fL3eoJ/47LCVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oSo09Hj2M4/tQP4wOWEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IWrMOVdvAHa4nBAlTogSJ0SJE6LECVHihKh3VykYd6G8sEYAAAAASUVORK5CYII=
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Avec des bâtons 4x1:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">Is</span> <span class="o">=</span> <span class="p">[</span><span class="n">I</span><span class="p">,</span> <span class="n">I</span><span class="o">.</span><span class="n">T</span><span class="p">]</span> 
+<span class="n">solve</span><span class="p">(</span><span class="n">Is</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 6 tuiles
+1 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnCAYAAADl9EEgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAADEklEQVR4nO3YwUkDURhG0SRMAXbgSrAGrcoKxE4sImnDMqwhuHk2MAQHAu8OnrOct/k2lx/mOMY4AD2n2QOAdeKEKHFClDghSpwQtdx6HFe/ctmf09dx9oRNxsthdbDLCVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocULUcuvx+bqfds8Pj7MnbPL09j17wibny8/sCX/3OXvAfeynPvhnxAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6KW2QPg7l4/Zi/YZryvfnY5IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTog6jjFmbwBWuJwQJU6IEidEiROixAlR4oSoX/15FovrnoniAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Avec un peu n'importe quoi:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">([</span><span class="n">C</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">L</span><span class="p">],</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 78 tuiles
+5 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exercices">Exercices<a class="anchor-link" href="#Exercices"></a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cas-2xn">Cas 2xn<a class="anchor-link" href="#Cas-2xn"></a></h3><p>Dans une grille 2xn, combien peut-on placer de L au maximum? <br>
+Quelques exemples:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 6 tuiles
+2 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjwAAAB+CAYAAAAgAMvUAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAACt0lEQVR4nO3bMUoDURhG0Ywk4DK0Sfqswx1ZhOzATbmICRZZgr2QcQPRQhkeXM5pX/NVw+WHmZZl2QAAlD2MHgAAsDbBAwDkCR4AIE/wAAB5ggcAyBM8AEDe9rfHw+eU/md9Pu9GT+CPprfX0RPW9X4avYB/uB3Tn87Nx+Pz6AmrmffX0RP4h5fLZvrpzYUHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIG87esBIh9PX6Amrms+70RPgrttxGT0B7jpcnkZPWNW8v46eMIwLDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AEDetCzL6A0AAKty4QEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHnfytIbKGVSX4QAAAAASUVORK5CYII=
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 7 tuiles
+1 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjwAAABzCAYAAACcntgKAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAACoUlEQVR4nO3bsUkDYRyHYU+0yigO4waWbiBYBIJFJskE1i7iBi5gJeJnL0mqC5+8PE/7b37FcbwXyDLGuAIAKLuePQAA4NIEDwCQJ3gAgDzBAwDkCR4AIO/m3HH5fsj8hWvcHWZP4I/9+2b2hNVsr59mT1jPbjd7AX/8PGdexVfLR+M7+/Xxa/YEjrh/u11O3RpPHgDAGYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMhbxhinj98Pp49MMe4OsyesZv++mT2BI7Yvn7MnrOLn2evrP1o+fGf/N6+PX7MnrOb+7XY5dfPkAQB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyFvGGLM3AABclF94AIA8wQMA5AkeACBP8AAAeYIHAMgTPABA3i9BayXd+T7veAAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 8 tuiles
+0 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjwAAABrCAYAAABzG1j8AAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAACfklEQVR4nO3bsU1cQRhGUQZhOSKgACpY6iB1BYhOVkT0gbYLaMNO3AQhGeMKTPCk1Yj7zkkn+cKrX5ox57wAACi7XD0AAODcBA8AkCd4AIA8wQMA5AkeACBP8AAAeVdfPY6ni2/5Z30+jtUTdmfcPqyesNk8nFZP2J3x92n1hN35/DiunrDJ88/r1RM2u7t/Xz1hd369/fhvALjwAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQd7V6wDmMl7l6wmbzcayesDvjz8PqCZvMw2n1hN35/DiunsA38vv1ZvWETe7u31dPOAsXHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJA35pyrNwAAnJULDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyPsHmt8eRrwEJ8AAAAAASUVORK5CYII=
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 8 tuiles
+2 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjwAAABkCAYAAACCTeopAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAACaklEQVR4nO3bsUmeURiGYb9gYeEAadO4QEaI8M+RypAhnEB7O/dwB0ubkCadfQJCCk8miHyFPy/cXFd7mqe8eeFsa60TAICyD9MDAACOTfAAAHmCBwDIEzwAQJ7gAQDyBA8AkHf61uN2OPFn/QjWw2F6wm7b3+/TE3Iery6nJ+z2+f5mesJury/X0xN2+3n2aXpC0u3Tr+kJu909n09PaPrye/vfkwsPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgLzT6QHvZT0cpicw7PHqcnpCzuvL9fSEpIvt6/SE3X6s++kJSd8+/pmesNvd8/n0hHfhwgMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgT/AAAHmCBwDIEzwAQJ7gAQDyBA8AkCd4AIA8wQMA5AkeACBP8AAAeYIHAMgTPABAnuABAPIEDwCQJ3gAgDzBAwDkCR4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJAneACAPMEDAOQJHgAgb1trTW8AADgqFx4AIE/wAAB5ggcAyBM8AECe4AEA8gQPAJD3DxlpIrCUXPKWAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cas-nxn">Cas nxn<a class="anchor-link" href="#Cas-nxn"></a></h3><p>Dans une grille nxn avec n une puissance de 2, combien peut-on placer de L au maximum? <br>
+Donner un algorithme diviser pour régner pour y parvenir.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Ls</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 85 tuiles
+1 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Argument-de-coloriage">Argument de coloriage<a class="anchor-link" href="#Argument-de-coloriage"></a></h3><p>À l'aide d'un argument de coloriage, montrer qu'il est impossible de recouvrir complètement une grille 10x10 avec des I.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">Is</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Solution optimale avec 24 tuiles
+4 cases ne sont pas couvertes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOcAAADnCAYAAADl9EEgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAADzUlEQVR4nO3coapVWQDH4XXkqqAgBh9AgzcICnptJstEm2AwTRlu8RUUsWvxHRS0iKBPYDQaJlkuRsMwweBsk+3MAeEszg/v98V94L9X+bHghL1almUAPSd2fQBgPXFClDghSpwQJU6I2tv048c///VX7iQHX67OGf58OGX264O/puwyxvnDc6t1z92cECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVEbv753cHR2zlsfzpkd179tf3Pv/fY3xxjjzpzZWU4fnNr1EY4dNydEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFC1Mav78FPZw7uT9nd/+f11jdvH219cowxxoVLc3afjGXtczcnRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6L2dn2A4+rFuzNTdm+M51N297/fnLLL/3NzQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0Rt/Pre8mo1561Hk3Y/nN3+5ttv298cY7x8uj9ll9+HmxOixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghauPX9+Cn5drrOcOf/pgw+mbC5hhvL5+esjv+Xv/YzQlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRIkTosQJUeKEqL1dH+C4ure6u+sj/JLlyqNdH+HYcXNClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihChxQpQ4IUqcECVOiBInRG38+t5y8r85b704Z3bK7q0Jm2OM8ezxpGF+F25OiBInRIkTosQJUeKEKHFClDghSpwQJU6IEidEiROixAlR4oQocUKUOCFKnBAlTogSJ0SJE6LECVHihKjVsiy7PgOwhpsTosQJUeKEKHFClDghSpwQ9QM7aC5nsYIFhgAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dual">Dual<a class="anchor-link" href="#Dual"></a></h2><p>Interpréter le dual du PLNE ci-dessus. A-t-on dualité forte?</p>
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
+  </div>
+</body>
+
+ 
+
+{% endraw %}
