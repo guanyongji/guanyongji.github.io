@@ -56,42 +56,42 @@ defaults:
       
 - scope:
     path: _posts
-    type: posts
+    type: talk
   values:
     layout: post
     sectionid: talk    
 
 - scope:
     path: _posts
-    type: posts
+    type: teaching
   values:
     layout: post
     sectionid: teaching
 
 - scope:
     path: _posts
-    type: posts
+    type: publications
   values:
     layout: post
     sectionid: publications
 
 - scope:
     path: _posts
-    type: posts
+    type: research
   values:
     layout: post
     sectionid: research
 
 - scope:
     path: _posts
-    type: posts
+    type: contact
   values:
     layout: post
     sectionid: contact
 
 - scope:
     path: _posts
-    type: posts
+    type: link
   values:
     layout: post
     sectionid: link     
