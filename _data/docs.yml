@@ -1,23 +1,4 @@
-- title: Getting Started
+- title: News & Blogs
   docs:
   - home
-  - themes
-  - customization
-
-- title: Examples
-  docs:
-  - cheatsheet
-  - font-awesome
-  - bootstrap
-
-- title: Getting Started
-  docs:
-  - home
-  - themes
-  - customization
-
-- title: Examples
-  docs:
-  - cheatsheet
-  - font-awesome
-  - bootstrap
+  - blogs

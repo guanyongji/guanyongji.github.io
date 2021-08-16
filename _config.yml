@@ -1,32 +1,26 @@
 # Site settings
-title: Yongji Guan's Homepage
-email: guanyj10@gmail.com
+title: SE @ MUICT
+affiliation: Mahidol University, Thailand
+email: chaiyong.rag@mahidol.ac.th, morakot.cho@mahidol.ac.th
 description: >
-  Jekyll Template for Project Websites
-  providing documentation and blog post pages.
-lang: en-US
+  The website of the Software Engineering Research Unit (SERU) at the Faculty of ICT, Mahidol University.
 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: https://guanyongji.github.io/ # the base hostname & protocol for your site
-git_address: https://github.com/guanyongji/guanyongji.github.io
-git_edit_address: https://github.com/guanyongji/guanyongji.github.io/blob/gh-pages
+url: https://muict-seru.github.io # the base hostname & protocol for your site
+git_address: https://github.com/MUICT-SERU
 
-# theme options from https://bootswatch.com/3/
+# theme options from https://bootswatch.com/
 # comment out this to use default Bootstrap
-bootwatch: paper # cerulean cosmo custom cyborg darkly flatly journal lumen readable sandstone simplex slate solar spacelab superhero united yeti
+bootwatch: journal
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
-# Plugins (previously gems:)
 plugins:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-remote-theme
-
-remote_theme: aksakalli/jekyll-doc-theme@gh-pages 
 
 exclude:
   - Gemfile
@@ -34,9 +28,7 @@ exclude:
   - .idea/
   - .gitignore
   - README.md
-  
-timezone: Europe/Berlin
-
+timezone: Europe/London
 defaults:
 - scope:
     path: _posts
@@ -53,48 +45,6 @@ defaults:
     sectionid: docs
     seo:
       type: "WebPage"
-      
-- scope:
-    path: _posts
-    type: talk
-  values:
-    layout: post
-    sectionid: talk    
-
-- scope:
-    path: _posts
-    type: teaching
-  values:
-    layout: post
-    sectionid: teaching
-
-- scope:
-    path: _posts
-    type: publications
-  values:
-    layout: post
-    sectionid: publications
-
-- scope:
-    path: _posts
-    type: research
-  values:
-    layout: post
-    sectionid: research
-
-- scope:
-    path: _posts
-    type: contact
-  values:
-    layout: post
-    sectionid: contact
-
-- scope:
-    path: _posts
-    type: link
-  values:
-    layout: post
-    sectionid: link     
 
 collections:
   docs:
