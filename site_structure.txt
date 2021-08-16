@@ -4,6 +4,7 @@ Top Nav
 	- Publications
 	- People
 	- Join Us
+	- Join Us
 	
 Main Page
 	- News
