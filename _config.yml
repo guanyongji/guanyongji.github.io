@@ -11,7 +11,7 @@ git_address: https://github.com/guanyongji
 
 # theme options from https://bootswatch.com/
 # comment out this to use default Bootstrap
-bootwatch: darkly #cerulean, cosmo, custom, cyborg, darkly, flatly, journal, lumen, paper, readable, sandstone, simplex, slate, solar, spacelab, superhero, united, yeti
+bootwatch: lumen #cerulean, cosmo, custom, cyborg, darkly, flatly, journal, lumen, paper, readable, sandstone, simplex, slate, solar, spacelab, superhero, united, yeti
 
 # Build settings
 markdown: kramdown
