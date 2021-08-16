@@ -53,3 +53,9 @@ collections:
   posts:
     permalink: /blog/:year/:month/:day/:title/
     output: true
+  docs:
+    permalink: /:collection/:path/
+    output: true
+  docs:
+    permalink: /:collection/:path/
+    output: true
