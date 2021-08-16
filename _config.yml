@@ -24,6 +24,9 @@ plugins:
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-remote-theme
+
+remote_theme: aksakalli/jekyll-doc-theme@gh-pages 
 
 exclude:
   - Gemfile
@@ -31,7 +34,9 @@ exclude:
   - .idea/
   - .gitignore
   - README.md
+  
 timezone: Europe/Berlin
+
 defaults:
 - scope:
     path: _posts
