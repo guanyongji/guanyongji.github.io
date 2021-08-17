@@ -15,9 +15,9 @@ $gray:                   #6f6f6f !default; // #555
 $gray-light:             lighten($gray-base, 60%) !default;   // #999
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         #0086d1 !default;
+$brand-primary:         #0068b7 !default;
 $brand-success:         #43ac6a !default;
-$brand-info:            #5bc0de !default;
+$brand-info:            #0086d1 !default;
 $brand-warning:         #E99002 !default;
 $brand-danger:          #F04124 !default;
 
@@ -201,7 +201,7 @@ $input-border-radius-large:      $border-radius-large !default;
 $input-border-radius-small:      $border-radius-small !default;
 
 //** Border color for inputs on focus
-$input-border-focus:             #66afe9 !default;
+$input-border-focus:             #0086d1 !default;
 
 //** Placeholder text color
 $input-color-placeholder:        $gray-light !default;
